@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_dashboard"
+    tools:context="com.example.daniel.university_of_lincoln_companion.Dashboard"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="USERNAME"
+        android:id="@+id/tvUsername" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/relative1">
+
+            <!-- BLACKBOARD - width and height was 125 margin was 25-->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:id="@+id/Blackboard"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="goToBlackboard"
+                >
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/Blackboardlogo"
+                    android:layout_gravity="center"
+                    android:src="@drawable/blackboard_logo"
+                    />
+
+            </android.support.v7.widget.CardView>
+
+            <!-- EMAIL -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/Email"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="goToEmail"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="EMAIL"
+                    android:layout_gravity="center" />
+
+            </android.support.v7.widget.CardView>
+
+            <!-- STAFF -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/staff"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="goToStaff"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Staff"
+                    android:layout_gravity="center" />
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- TIMETABLE -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/Test"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="get_Timetable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Timetable"
+                    android:layout_gravity="center"/>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- SOCIAL -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/Social"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="goToSocial">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Social"
+                    android:layout_gravity="center"/>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- IMPORTANT NUMBERS -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/ImportantNumbers"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="goToContact">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Important Numbers"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#FF0000"/>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- IMPORTANT DATES -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/ImDates"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp"
+                android:onClick="getDates">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Important Dates"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#FF0000"/>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- SHARE FILES -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/shareFiles"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share Files"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#FF0000"/>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- CAMPUS MAP -->
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@color/UniMain"
+                android:layout_margin="10dp"
+                android:id="@+id/map"
+                card_view:cardCornerRadius="2dp"
+                android:elevation="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Campus Map / Room Finder"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#FF0000"/>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:id="@+id/btnLogout"
+        android:onClick="userLog_Out"
+        android:layout_marginTop="38dp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
