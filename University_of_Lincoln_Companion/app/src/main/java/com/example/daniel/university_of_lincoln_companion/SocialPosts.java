@@ -1,6 +1,11 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -39,6 +44,7 @@ public class SocialPosts extends AppCompatActivity {
     private ArrayList<String> arlNumberOfPostComments = new ArrayList<String>();
     private String strResponse, strQueryCode, strSelectedStatus, strSelectedStatusCode, strSelectedNumComments;
     private ListView list;
+
 
 
     @Override
@@ -85,12 +91,52 @@ public class SocialPosts extends AppCompatActivity {
 //        custom_list_adapter_socialposts custom_listView_adapter = new custom_list_adapter_socialposts(this, arlPosts, arlPosterNames, arlPostDate, arlNumberOfPostComments);
 //        list.setAdapter(custom_listView_adapter);
 
-        new getPosts().execute();
+        if (CheckConnection()) {
+            new getPosts().execute();
+        }else NoConnectionDialog();
     }
+
+    public Boolean CheckConnection(){
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE); //CREATE A NEW CONNECTION MANAGER
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();  //GETS THE INFORMATION OF THE ACTIVE NETWORK
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting(); //RETURNS TRUE IS THERE IS A CONNECTION OT A CONNECTING PROCESS
+    }
+
+    //SHOWS NO CONNECTION DIALOG
+    public void NoConnectionDialog(){
+        AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+        alertNoActiveUser.setTitle("No Connection");
+        alertNoActiveUser.setMessage("Please connect to the internet and try again");
+
+        alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();   //CLOSES THE DIALOG
+            }
+        });
+        alertNoActiveUser.show();
+    }
+
 
     public void goToWritePost(View view){
         startActivity(new Intent(this, CreatePost.class));
         this.finish();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        arlPostId.clear();
+        arlPosts.clear();
+        arlPosterNames.clear();
+        arlPostDate.clear();
+        arlNumberOfPostComments.clear();
+
+        if (CheckConnection()) {
+            new getPosts().execute();
+        }else NoConnectionDialog();
     }
 
     private class getPosts extends AsyncTask<String, String, String>{
@@ -105,70 +151,72 @@ public class SocialPosts extends AppCompatActivity {
 
             String strLoginURL = "http://82.14.95.59/uol_companion/getposts.php";
 
-            try {
-                URL loginURL = new URL(strLoginURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+            if (CheckConnection()) {
+                try {
+                    URL loginURL = new URL(strLoginURL);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("post_course", "UTF-8") + "=" + URLEncoder.encode("computer science", "UTF-8");
+                    String data = URLEncoder.encode("post_course", "UTF-8") + "=" + URLEncoder.encode("computer science", "UTF-8");
 
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                strResponse = "";
-                String line = "";
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                    strResponse = "";
+                    String line = "";
 
-                while ((line = bufferedReader.readLine()) != null){
-                    strResponse += line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        strResponse += line;
+                    }
+
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
+                try {
+                    JSONObject jsonObject = new JSONObject(strResponse);
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                    strQueryCode = jsonObject.getString("status");
 
-            try {
-                JSONObject jsonObject = new JSONObject(strResponse);
+                    if (strQueryCode.equals("1")) {
 
-                strQueryCode = jsonObject.getString("status");
+                        JSONArray jsonArray = jsonObject.getJSONArray("posts");
 
-                if (strQueryCode.equals("1")){
+                        for (int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONArray jsonArray = jsonObject.getJSONArray("posts");
+                            //CREATES A JSON OBJECT FOR THE ITEM AT THE CURRENT POSITION
+                            JSONObject json_message = jsonArray.getJSONObject(i);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                            if (json_message != null) {
 
-                        //CREATES A JSON OBJECT FOR THE ITEM AT THE CURRENT POSITION
-                        JSONObject json_message = jsonArray.getJSONObject(i);
-
-                        if (json_message != null) {
-
-                            arlPostId.add(json_message.getString("status_id"));
-                            arlPosts.add(json_message.getString("status"));
-                            arlPosterNames.add(json_message.getString("poster_name"));
-                            arlPostDate.add(json_message.getString("post_date"));
-                            arlNumberOfPostComments.add(json_message.getString("num_comments"));
+                                arlPostId.add(json_message.getString("status_id"));
+                                arlPosts.add(json_message.getString("status"));
+                                arlPosterNames.add(json_message.getString("poster_name"));
+                                arlPostDate.add(json_message.getString("post_date"));
+                                arlNumberOfPostComments.add(json_message.getString("num_comments"));
+                            }
                         }
                     }
-                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else NoConnectionDialog();
 
             return null;
         }
@@ -187,6 +235,8 @@ public class SocialPosts extends AppCompatActivity {
                 //region PASS DATA TO CUSTOM LIST VIEW ADAPTER
                 custom_list_adapter_socialposts custom_listView_adapter = new custom_list_adapter_socialposts(SocialPosts.this, arlPosts, arlPosterNames, arlPostDate, arlNumberOfPostComments);
                 list.setAdapter(custom_listView_adapter);
+            }else {
+                //SHOW DIALOG
             }
         }
     }

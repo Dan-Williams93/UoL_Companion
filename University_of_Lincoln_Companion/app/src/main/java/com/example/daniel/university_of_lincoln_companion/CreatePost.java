@@ -1,6 +1,11 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -56,6 +61,27 @@ public class CreatePost extends AppCompatActivity {
         strStudentNumber = StudentDetails.getStudentNumber();
     }
 
+    public Boolean CheckConnection(){
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE); //CREATE A NEW CONNECTION MANAGER
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();  //GETS THE INFORMATION OF THE ACTIVE NETWORK
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting(); //RETURNS TRUE IS THERE IS A CONNECTION OT A CONNECTING PROCESS
+    }
+
+    public void NoConnectionDialog(){
+        AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+        alertNoActiveUser.setTitle("No Connection");
+        alertNoActiveUser.setMessage("Please connect to the internet and try again");
+
+        alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();   //CLOSES THE DIALOG
+            }
+        });
+        alertNoActiveUser.show();
+    }
+
     public void postStatus(View view){
 
         strStatus = etStatus.getText().toString();
@@ -64,55 +90,64 @@ public class CreatePost extends AppCompatActivity {
         Date date = new Date();
         strDate = currentDate.format(date);
 
-        new createPosts().execute();
+        if (CheckConnection()) {
+            new createPosts().execute();
+        }else NoConnectionDialog();
     }
 
     private class createPosts extends AsyncTask<String, String, String> {
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
         @Override
         protected String doInBackground(String... params) {
 
             String strLoginURL = "http://82.14.95.59/uol_companion/poststatus.php";
 
-            try {
-                URL loginURL = new URL(strLoginURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+            if (CheckConnection()) {
+                try {
+                    URL loginURL = new URL(strLoginURL);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("poster_name", "UTF-8") + "=" + URLEncoder.encode(strName, "UTF-8") + "&" +
-                        URLEncoder.encode("post", "UTF-8") + "=" + URLEncoder.encode(strStatus, "UTF-8") + "&" +
-                        URLEncoder.encode("post_date", "UTF-8") + "=" + URLEncoder.encode(strDate, "UTF-8") + "&" +
-                        URLEncoder.encode("post_course", "UTF-8") + "=" + URLEncoder.encode(strCourse, "UTF-8");
+                    String data = URLEncoder.encode("poster_name", "UTF-8") + "=" + URLEncoder.encode(strName, "UTF-8") + "&" +
+                            URLEncoder.encode("post", "UTF-8") + "=" + URLEncoder.encode(strStatus, "UTF-8") + "&" +
+                            URLEncoder.encode("post_date", "UTF-8") + "=" + URLEncoder.encode(strDate, "UTF-8") + "&" +
+                            URLEncoder.encode("post_course", "UTF-8") + "=" + URLEncoder.encode(strCourse, "UTF-8");
 
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                strResponse = "";
-                String line = "";
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                    strResponse = "";
+                    String line = "";
 
-                while ((line = bufferedReader.readLine()) != null){
-                    strResponse += line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        strResponse += line;
+                    }
+
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }else NoConnectionDialog();
 
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return null;
         }
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,8 +50,8 @@ public class custom_list_adapter_staff extends ArrayAdapter {
         TextView tvEmail = (TextView) viewRow.findViewById(R.id.tvEmail);;
         TextView tvPhone = (TextView) viewRow.findViewById(R.id.tvPhone);
 
-        Button btnEmail = (Button) viewRow.findViewById(R.id.btnEmail);
-        Button btnPhone = (Button) viewRow.findViewById(R.id.btnRing);
+        ImageButton btnEmail = (ImageButton) viewRow.findViewById(R.id.btnEmail);
+        ImageButton btnPhone = (ImageButton) viewRow.findViewById(R.id.btnRing);
 
         //SETS THE VALUES OF THE COMPONENTS TO THE VALUES OF THE ARRAY DATA PASSED IN AT THE POSITION OF THE CURRENT ROW
         tvStaffName.setText(arName.get(position));

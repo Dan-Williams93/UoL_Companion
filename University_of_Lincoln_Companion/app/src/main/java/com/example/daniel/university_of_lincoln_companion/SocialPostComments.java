@@ -1,6 +1,11 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -66,10 +71,34 @@ public class SocialPostComments extends AppCompatActivity {
         strName = activeStudent.getName();
         tvStatus.setText(strStatusID + ": " + strStatus);
 
-        new getComments().execute();
+        if (CheckConnection()) {
+            new getComments().execute();
+        }else NoConnectionDialog();
     }
 
-    public void postComment(View view){
+    public Boolean CheckConnection(){
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE); //CREATE A NEW CONNECTION MANAGER
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();  //GETS THE INFORMATION OF THE ACTIVE NETWORK
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting(); //RETURNS TRUE IS THERE IS A CONNECTION OT A CONNECTING PROCESS
+    }
+
+    //SHOWS NO CONNECTION DIALOG
+    public void NoConnectionDialog(){
+        AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+        alertNoActiveUser.setTitle("No Connection");
+        alertNoActiveUser.setMessage("Please connect to the internet and try again");
+
+        alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();   //CLOSES THE DIALOG
+            }
+        });
+        alertNoActiveUser.show();
+    }
+
+    public void postComment(View view) {
 
         SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
@@ -77,11 +106,13 @@ public class SocialPostComments extends AppCompatActivity {
 
         strComment = etComment.getText().toString();
 
-        new postStatusComment().execute();
+        if (CheckConnection()) {
+            new postStatusComment().execute();
 
-        arlComment.clear();
-        arlPosterNames.clear();
-        arlPostDate.clear();
+            arlComment.clear();
+            arlPosterNames.clear();
+            arlPostDate.clear();
+        }else NoConnectionDialog();
     }
 
     private class getComments extends AsyncTask<Void, Void, Void> {
@@ -91,70 +122,72 @@ public class SocialPostComments extends AppCompatActivity {
 
             String strURL = "http://82.14.95.59/uol_companion/getcomments.php";
 
-            try {
-                URL url = new URL(strURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+            if (CheckConnection()) {
+                try {
+                    URL url = new URL(strURL);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("post_id", "UTF-8") + "=" + URLEncoder.encode(strStatusID, "UTF-8");
+                    String data = URLEncoder.encode("post_id", "UTF-8") + "=" + URLEncoder.encode(strStatusID, "UTF-8");
 
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                strResponse = "";
-                String line = "";
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                    strResponse = "";
+                    String line = "";
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    strResponse += line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        strResponse += line;
+                    }
+
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
+                try {
+                    JSONObject jsonObject = new JSONObject(strResponse);
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                    strQueryCode = jsonObject.getString("status");
 
-            try {
-                JSONObject jsonObject = new JSONObject(strResponse);
+                    if (strQueryCode.equals("1")) {
 
-                strQueryCode = jsonObject.getString("status");
+                        JSONArray jsonArray = jsonObject.getJSONArray("result");
 
-                if (strQueryCode.equals("1")) {
+                        for (int i = 0; i <= jsonArray.length(); i++) {
 
-                    JSONArray jsonArray = jsonObject.getJSONArray("result");
+                            //CREATES A JSON OBJECT FOR THE ITEM AT THE CURRENT POSITION
+                            JSONObject json_message = jsonArray.getJSONObject(i);
 
-                    for (int i = 0; i <= jsonArray.length(); i++) {
-
-                        //CREATES A JSON OBJECT FOR THE ITEM AT THE CURRENT POSITION
-                        JSONObject json_message = jsonArray.getJSONObject(i);
-
-                        if (json_message != null) {
-                            arlCommentID.add(json_message.getString("comment_id"));
-                            arlPosterNames.add(json_message.getString("commenter_name"));
-                            arlPostDate.add(json_message.getString("comment_date"));
-                            arlComment.add(json_message.getString("comment"));
+                            if (json_message != null) {
+                                arlCommentID.add(json_message.getString("comment_id"));
+                                arlPosterNames.add(json_message.getString("commenter_name"));
+                                arlPostDate.add(json_message.getString("comment_date"));
+                                arlComment.add(json_message.getString("comment"));
+                            }
                         }
                     }
-                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else NoConnectionDialog();
 
             return null;
         }
@@ -167,6 +200,8 @@ public class SocialPostComments extends AppCompatActivity {
                 //region PASS DATA TO CUSTOM LIST VIEW ADAPTER
                 custom_list_adapter_socialcomments custom_listView_adapter = new custom_list_adapter_socialcomments(SocialPostComments.this, arlComment, arlPosterNames, arlPostDate);
                 lstComments.setAdapter(custom_listView_adapter);
+            }else{
+                //SHOW NO RESULTS DIALOG
             }
         }
     }
@@ -178,45 +213,47 @@ public class SocialPostComments extends AppCompatActivity {
 
             String strLoginURL = "http://82.14.95.59/uol_companion/postcomment.php";
 
-            try {
-                URL loginURL = new URL(strLoginURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+            if (CheckConnection()) {
+                try {
+                    URL loginURL = new URL(strLoginURL);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("post_id", "UTF-8") + "=" + URLEncoder.encode(strStatusID, "UTF-8") + "&" +
-                        URLEncoder.encode("commenter_name", "UTF-8") + "=" + URLEncoder.encode(strName, "UTF-8") + "&" +
-                        URLEncoder.encode("comment_date", "UTF-8") + "=" + URLEncoder.encode(strDate, "UTF-8") + "&" +
-                        URLEncoder.encode("comment", "UTF-8") + "=" + URLEncoder.encode(strComment, "UTF-8")+ "&" +
-                        URLEncoder.encode("numComments", "UTF-8") + "=" + URLEncoder.encode(strNumComments, "UTF-8");
+                    String data = URLEncoder.encode("post_id", "UTF-8") + "=" + URLEncoder.encode(strStatusID, "UTF-8") + "&" +
+                            URLEncoder.encode("commenter_name", "UTF-8") + "=" + URLEncoder.encode(strName, "UTF-8") + "&" +
+                            URLEncoder.encode("comment_date", "UTF-8") + "=" + URLEncoder.encode(strDate, "UTF-8") + "&" +
+                            URLEncoder.encode("comment", "UTF-8") + "=" + URLEncoder.encode(strComment, "UTF-8") + "&" +
+                            URLEncoder.encode("numComments", "UTF-8") + "=" + URLEncoder.encode(strNumComments, "UTF-8");
 
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                strPostResponse = "";
-                String line = "";
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                    strPostResponse = "";
+                    String line = "";
 
-                while ((line = bufferedReader.readLine()) != null){
-                    strPostResponse += line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        strPostResponse += line;
+                    }
+
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            }else NoConnectionDialog();
 
             return null;
         }
@@ -229,7 +266,12 @@ public class SocialPostComments extends AppCompatActivity {
                 etComment.setText("");
                 Toast.makeText(SocialPostComments.this, "Comment Posted", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(SocialPostComments.this, Dashboard.class));
-                new getComments().execute();
+
+                if (CheckConnection()) {
+                    new getComments().execute();
+                }else NoConnectionDialog();
+            }else {
+                //SHOW DIALOG
             }
 
             strPostResponse = "";

@@ -1,5 +1,10 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -56,6 +61,28 @@ public class SearchStaff extends AppCompatActivity {
 
     }
 
+    public Boolean CheckConnection(){
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE); //CREATE A NEW CONNECTION MANAGER
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();  //GETS THE INFORMATION OF THE ACTIVE NETWORK
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting(); //RETURNS TRUE IS THERE IS A CONNECTION OT A CONNECTING PROCESS
+    }
+
+    //SHOWS NO CONNECTION DIALOG
+    public void NoConnectionDialog(){
+        AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+        alertNoActiveUser.setTitle("No Connection");
+        alertNoActiveUser.setMessage("Please connect to the internet and try again");
+
+        alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();   //CLOSES THE DIALOG
+            }
+        });
+        alertNoActiveUser.show();
+    }
+
     public void searchStaff(View view){
 
         arStaffName.clear();
@@ -68,7 +95,9 @@ public class SearchStaff extends AppCompatActivity {
         strSearchField = spSearchField.getSelectedItem().toString();
 
         if (strSerachCriteria.length() >= 1) {
-            new getStaffDetails().execute();
+            if (CheckConnection()) {
+                new getStaffDetails().execute();
+            }else NoConnectionDialog();
         }else{
             Toast.makeText(SearchStaff.this, "Invalid Entry", Toast.LENGTH_SHORT).show();
         }
@@ -82,71 +111,73 @@ public class SearchStaff extends AppCompatActivity {
 
             String strLoginURL = "http://82.14.95.59/uol_companion/searchstaff.php";
 
-            try {
-                URL loginURL = new URL(strLoginURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+            if (CheckConnection()) {
+                try {
+                    URL loginURL = new URL(strLoginURL);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) loginURL.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("search_input", "UTF-8") + "=" + URLEncoder.encode(strSerachCriteria, "UTF-8") + "&" +
-                        URLEncoder.encode("search_field", "UTF-8") + "=" + URLEncoder.encode(strSearchField, "UTF-8");
+                    String data = URLEncoder.encode("search_input", "UTF-8") + "=" + URLEncoder.encode(strSerachCriteria, "UTF-8") + "&" +
+                            URLEncoder.encode("search_field", "UTF-8") + "=" + URLEncoder.encode(strSearchField, "UTF-8");
 
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                strPostResponse = "";
-                String line = "";
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                    strPostResponse = "";
+                    String line = "";
 
-                while ((line = bufferedReader.readLine()) != null){
-                    strPostResponse += line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        strPostResponse += line;
+                    }
+
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
+                try {
+                    JSONObject jsonObject = new JSONObject(strPostResponse);
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                    strQueryCode = jsonObject.getString("status");
 
-            try {
-                JSONObject jsonObject = new JSONObject(strPostResponse);
+                    if (strQueryCode.equals("1")) {
 
-                strQueryCode = jsonObject.getString("status");
+                        JSONArray jsonArray = jsonObject.getJSONArray("result");
 
-                if (strQueryCode.equals("1")){
+                        for (int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONArray jsonArray = jsonObject.getJSONArray("result");
+                            //CREATES A JSON OBJECT FOR THE ITEM AT THE CURRENT POSITION
+                            JSONObject json_message = jsonArray.getJSONObject(i);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                            if (json_message != null) {
 
-                        //CREATES A JSON OBJECT FOR THE ITEM AT THE CURRENT POSITION
-                        JSONObject json_message = jsonArray.getJSONObject(i);
-
-                        if (json_message != null) {
-
-                            arStaffName.add(json_message.getString("name"));
-                            arDescription.add(json_message.getString("description"));
-                            arDepartment.add(json_message.getString("department"));
-                            arPhoneNumber.add(json_message.getString("phone_number"));
-                            arEmail.add(json_message.getString("email"));
+                                arStaffName.add(json_message.getString("name"));
+                                arDescription.add(json_message.getString("description"));
+                                arDepartment.add(json_message.getString("department"));
+                                arPhoneNumber.add(json_message.getString("phone_number"));
+                                arEmail.add(json_message.getString("email"));
+                            }
                         }
                     }
-                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else NoConnectionDialog();
 
             return null;
         }
@@ -156,8 +187,12 @@ public class SearchStaff extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            custom_list_adapter_staff custom_adapter = new custom_list_adapter_staff(SearchStaff.this, arStaffName, arDepartment, arEmail, arPhoneNumber);
-            lstStaff.setAdapter(custom_adapter);
+            if (strQueryCode.equals("1")) {
+                custom_list_adapter_staff custom_adapter = new custom_list_adapter_staff(SearchStaff.this, arStaffName, arDepartment, arEmail, arPhoneNumber);
+                lstStaff.setAdapter(custom_adapter);
+            }else{
+                //SHOW NO RESULTS DIALOG
+            }
         }
 
     }

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.VoiceInteractor;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +24,8 @@ import java.net.URL;
 public class WebViewing extends Activity {
 
     private WebView myWebView;
+    private String strURL;
+    private ActiveStudent activeStudent = ActiveStudent.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +33,31 @@ public class WebViewing extends Activity {
         setContentView(R.layout.activity_web_viewing);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        String strURL = String.valueOf(getIntent().getExtras().get("URL"));
+        //need
+        strURL = String.valueOf(getIntent().getExtras().get("URL"));
 
-        //strURL = "http://www.google.com";//String.valueOf(getIntent().getExtras().get("URL"));
+        //strURL = "http://timetables.lincoln.ac.uk/mytimetable/13458204.htm";//String.valueOf(getIntent().getExtras().get("URL"));
 
         myWebView = (WebView)findViewById(R.id.WebView1);
-        myWebView.setWebViewClient(new WebViewClient());
+        //myWebView.setWebViewClient(new WebViewClient());
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.getSettings().getLoadWithOverviewMode();
         myWebView.getSettings().setDisplayZoomControls(false);
         myWebView.getSettings().setBuiltInZoomControls(true);
+
+        myWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+        });
+
         myWebView.loadUrl(strURL);
         //myWebView.loadUrl("http://www.closetcooking.com/2011/08/buffalo-chicken-grilled-cheese-sandwich.html");
 
@@ -61,7 +80,28 @@ public class WebViewing extends Activity {
             super.onBackPressed();
         }
     }
+
+    public void returnHome(View view){
+
+        String strStudentNumber = activeStudent.getStudentNumber();
+
+
+        Intent dashIntent = new Intent(WebViewing.this, Dashboard.class);
+        dashIntent.putExtra("username", strStudentNumber);
+        startActivity(dashIntent);
+        this.finish();
+    }
 }
+
+
+
+/*
+get from intent where the intent is sent from
+if from blackboard see if there is a url stored
+if there is load it
+if not load original
+ */
+
 
 
 
