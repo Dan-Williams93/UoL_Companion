@@ -11,31 +11,62 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.daniel.university_of_lincoln_companion.SearchStaff"
     tools:showIn="@layout/activity_search_staff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/staffSpinner"
+        android:layout_marginBottom="10dp"
         android:entries="@array/search_entrires"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etSearch"/>
+        android:id="@+id/etSearch"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_border_socialposts"/>
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Search"
+        android:layout_marginTop="10dp"
+        android:minHeight="40dp"
         android:id="@+id/btnSearch"
         android:onClick="searchStaff"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_button"/>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lstStaff"
-        android:layout_marginTop="36dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lstStaff"
+            android:layout_marginTop="36dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Search Credentials"
+            android:layout_marginTop="150dp"
+            android:id="@+id/tvMessageStaff"
+            android:layout_centerHorizontal="true"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progStaff"
+            android:layout_alignBottom="@+id/tvMessageStaff"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

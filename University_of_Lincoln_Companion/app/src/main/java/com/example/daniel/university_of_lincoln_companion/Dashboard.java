@@ -141,4 +141,9 @@ public class Dashboard extends Activity {
         startActivity(intent);
         finish();
     }
+
+    public void goToMap(View view){
+
+        startActivity(new Intent(this, Maps.class));
+    }
 }

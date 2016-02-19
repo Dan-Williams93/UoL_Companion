@@ -12,8 +12,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +46,11 @@ import java.util.Date;
 
 public class SocialPostComments extends AppCompatActivity {
 
-    private TextView tvStatus;
+    private TextView tvStatus, tvS, tvP;
     private EditText etComment;
     private ListView lstComments;
-    private String strStatus, strStatusID, strQueryCode, strResponse, strComment, strDate, strName, strPostResponse, strNumComments;
+    private LinearLayout layout;
+    private String strStatus, strStatusID, strQueryCode, strResponse, strComment, strDate, strName, strPostResponse, strNumComments, strPoster;
     private ArrayList<String> arlCommentID = new ArrayList<String>();
     private ArrayList<String> arlPosterNames = new ArrayList<String>();
     private ArrayList<String> arlComment = new ArrayList<String>();
@@ -58,22 +64,50 @@ public class SocialPostComments extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tvStatus = (TextView)findViewById(R.id.tvStatus);
+        //tvStatus = (TextView)findViewById(R.id.tvStatus);
         etComment = (EditText)findViewById(R.id.etComment);
         lstComments = (ListView)findViewById(R.id.lstComments);
+
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hides on start
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         strStatusID = getIntent().getExtras().getString("statusID");
         strStatus = getIntent().getExtras().getString("status");
         strNumComments = getIntent().getExtras().getString("statusNumComments");
+        strPoster = getIntent().getExtras().getString("statusPoster");
 
         strName = activeStudent.getName();
-        tvStatus.setText(strStatusID + ": " + strStatus);
+        //tvStatus.setText(strStatusID + ": " + strStatus);
+
+        //CREATE HEADER FOR LISTVIEW
+        LayoutInflater inflater = getLayoutInflater();
+        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.custom_list_header, lstComments, false);
+        tvS = (TextView)header.findViewById(R.id.tvStatusComment);
+        tvP = (TextView)header.findViewById(R.id.tvPoster);
+        tvP.setText(strPoster);
+        tvS.setText(/*strStatusID + ": " +*/ strStatus);
+        lstComments.addHeaderView(header, null, false);
+
+        etComment.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!etComment.isFocused()){
+                    HideKeyboard();
+                }
+            }
+        });
 
         if (CheckConnection()) {
             new getComments().execute();
         }else NoConnectionDialog();
+    }
+
+    public void HideKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(etComment.getWindowToken(), 0);
     }
 
     public Boolean CheckConnection(){
@@ -107,11 +141,15 @@ public class SocialPostComments extends AppCompatActivity {
         strComment = etComment.getText().toString();
 
         if (CheckConnection()) {
-            new postStatusComment().execute();
+            if (!strComment.equals("") && !strComment.equals(" ") && !strComment.equals(null)) {
+                new postStatusComment().execute();
 
-            arlComment.clear();
-            arlPosterNames.clear();
-            arlPostDate.clear();
+                arlComment.clear();
+                arlPosterNames.clear();
+                arlPostDate.clear();
+            }else{
+                Toast.makeText(SocialPostComments.this, "Invalid Comment", Toast.LENGTH_SHORT).show();
+            }
         }else NoConnectionDialog();
     }
 
@@ -198,10 +236,12 @@ public class SocialPostComments extends AppCompatActivity {
 
             if (strQueryCode.equals("1")) {
                 //region PASS DATA TO CUSTOM LIST VIEW ADAPTER
+
                 custom_list_adapter_socialcomments custom_listView_adapter = new custom_list_adapter_socialcomments(SocialPostComments.this, arlComment, arlPosterNames, arlPostDate);
                 lstComments.setAdapter(custom_listView_adapter);
             }else{
                 //SHOW NO RESULTS DIALOG
+                lstComments.setAdapter(null);
             }
         }
     }

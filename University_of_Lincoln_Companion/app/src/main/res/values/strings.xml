@@ -21,5 +21,6 @@
     <string name="title_activity_send_email">SendEmail</string>
     <string name="title_activity_important_dates">ImportantDates</string>
     <string name="title_activity_important_numbers">ImportantNumbers</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

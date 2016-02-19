@@ -20,9 +20,32 @@
         android:text="Large Text"
         android:id="@+id/tvDates" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lstDates"
-        android:layout_marginTop="15dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lstDates"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Dates Founds"
+            android:id="@+id/tvMessageDates"
+            android:layout_alignTop="@+id/lstDates"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="191dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progDates"
+            android:layout_marginTop="170dp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
 </LinearLayout>

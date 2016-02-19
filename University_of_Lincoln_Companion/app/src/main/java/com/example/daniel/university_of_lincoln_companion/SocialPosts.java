@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,10 +44,10 @@ public class SocialPosts extends AppCompatActivity {
     private ArrayList<String> arlPosterNames = new ArrayList<String>();
     private ArrayList<String> arlPostDate = new ArrayList<String>();
     private ArrayList<String> arlNumberOfPostComments = new ArrayList<String>();
-    private String strResponse, strQueryCode, strSelectedStatus, strSelectedStatusCode, strSelectedNumComments;
+    private String strResponse, strQueryCode, strSelectedStatus, strSelectedStatusCode, strSelectedNumComments, strPoster;
     private ListView list;
-
-
+    private TextView tvMessage;
+    private ProgressBar progSocial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,11 @@ public class SocialPosts extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         list = (ListView) findViewById(R.id.lstPosts);
+        tvMessage = (TextView)findViewById(R.id.tvMessageSocial);
+        progSocial = (ProgressBar)findViewById(R.id.progSocial);
+
+        progSocial.setVisibility(View.INVISIBLE);
+        tvMessage.setVisibility(View.GONE);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,31 +72,21 @@ public class SocialPosts extends AppCompatActivity {
                 strSelectedStatus = arlPosts.get(position);
                 strSelectedStatusCode = arlPostId.get(position);
                 strSelectedNumComments = arlNumberOfPostComments.get(position);
+                strPoster = arlPosterNames.get(position);
 
-                Intent statusIntent = new Intent(SocialPosts.this, SocialPostComments.class);
-                statusIntent.putExtra("statusID", strSelectedStatusCode);
-                statusIntent.putExtra("status", strSelectedStatus);
-                statusIntent.putExtra("statusNumComments", strSelectedNumComments);
-                startActivity(statusIntent);
+                //if(!strSelectedNumComments.equals("0")) {
+
+                    Intent statusIntent = new Intent(SocialPosts.this, SocialPostComments.class);
+                    statusIntent.putExtra("statusID", strSelectedStatusCode);
+                    statusIntent.putExtra("status", strSelectedStatus);
+                    statusIntent.putExtra("statusNumComments", strSelectedNumComments);
+                    statusIntent.putExtra("statusPoster", strPoster);
+                    startActivity(statusIntent);
+                //}else{
+                    //SHOW DIALOG SAYING NO COMMENTS
+                //}
             }
         });
-
-       // arlPosts.add("this is post one");
-       // arlPosts.add("this is post two");
-
-       // arlPosterNames.add("Dan Williams");
-       // arlPosterNames.add("Kerry Swann");
-
-       // arlPostDate.add("10/10/10");
-       // arlPostDate.add("20/20/20");
-
-       // arlNumberOfPostComments.add("10");
-       // arlNumberOfPostComments.add("20");
-
-        //region PASS DATA TO CUSTOM LIST VIEW ADAPTER
-//        ListView list = (ListView) findViewById(R.id.lstPosts);
-//        custom_list_adapter_socialposts custom_listView_adapter = new custom_list_adapter_socialposts(this, arlPosts, arlPosterNames, arlPostDate, arlNumberOfPostComments);
-//        list.setAdapter(custom_listView_adapter);
 
         if (CheckConnection()) {
             new getPosts().execute();
@@ -118,7 +115,6 @@ public class SocialPosts extends AppCompatActivity {
         alertNoActiveUser.show();
     }
 
-
     public void goToWritePost(View view){
         startActivity(new Intent(this, CreatePost.class));
         this.finish();
@@ -144,6 +140,8 @@ public class SocialPosts extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            progSocial.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -236,8 +234,12 @@ public class SocialPosts extends AppCompatActivity {
                 custom_list_adapter_socialposts custom_listView_adapter = new custom_list_adapter_socialposts(SocialPosts.this, arlPosts, arlPosterNames, arlPostDate, arlNumberOfPostComments);
                 list.setAdapter(custom_listView_adapter);
             }else {
-                //SHOW DIALOG
+
+                tvMessage.setVisibility(View.VISIBLE);
             }
+
+            progSocial.setVisibility(View.GONE);
+
         }
     }
 

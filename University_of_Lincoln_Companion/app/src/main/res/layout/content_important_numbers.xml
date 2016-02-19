@@ -75,15 +75,17 @@
                                 android:layout_centerVertical="true"/>
 
                             <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
                                 android:text="R"
                                 android:onClick="callGeneralEnquires"
                                 android:layout_alignParentRight="true"
                                 android:background="@drawable/round_button"
                                 android:src="@android:drawable/stat_sys_phone_call"
-                                android:scaleType="fitCenter"
-                                android:adjustViewBounds="true"/>
+                                android:scaleType="fitXY"
+                                android:adjustViewBounds="true"
+                                android:tint="@color/PhoneColour"/>
 
                         </RelativeLayout>
 
@@ -115,15 +117,16 @@
                                 android:layout_centerVertical="true"/>
 
                             <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:text="R"
                                 android:onClick="callSecurity"
                                 android:layout_alignParentRight="true"
                                 android:background="@drawable/round_button"
                                 android:src="@android:drawable/stat_sys_phone_call"
                                 android:scaleType="fitCenter"
-                                android:adjustViewBounds="true"/>
+                                android:adjustViewBounds="true"
+                                android:tint="@color/PhoneColour"/>
 
                         </RelativeLayout>
 
@@ -187,15 +190,16 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callAccommodationServices"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
                                     android:scaleType="fitCenter"
-                                    android:adjustViewBounds="true"/>
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
                             </RelativeLayout>
                             <!-- EMAIL -->
                             <RelativeLayout
@@ -221,7 +225,8 @@
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/ic_dialog_email"
                                     android:scaleType="fitCenter"
-                                    android:adjustViewBounds="true"/>
+                                    android:adjustViewBounds="true"
+                                    />
                             </RelativeLayout>
 
                         </LinearLayout>
@@ -254,15 +259,16 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callTheLibrary"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
                                     android:scaleType="fitCenter"
-                                    android:adjustViewBounds="true"/>
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
                             </RelativeLayout>
                             <!-- EMAIL -->
                             <RelativeLayout
@@ -321,15 +327,16 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callStudentSupport"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
                                     android:scaleType="fitCenter"
-                                    android:adjustViewBounds="true"/>
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
                             </RelativeLayout>
                             <!-- EMAIL -->
                             <RelativeLayout
@@ -387,15 +394,16 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callStudentsUnion"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
                                     android:scaleType="fitCenter"
-                                    android:adjustViewBounds="true"/>
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
                             </RelativeLayout>
                             <!-- EMAIL -->
                             <RelativeLayout
@@ -483,10 +491,11 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callEstates"
+                                    android:tint="@color/PhoneColour"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
@@ -551,9 +560,10 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
+                                    android:tint="@color/PhoneColour"
                                     android:onClick="callFinance"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
@@ -618,14 +628,15 @@
                                     android:textSize="15sp"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callHR"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
                                     android:scaleType="fitCenter"
+                                    android:tint="@color/PhoneColour"
                                     android:adjustViewBounds="true"/>
                             </RelativeLayout>
                             <!-- EMAIL -->
@@ -685,12 +696,13 @@
                                     android:textSize="15sp"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callICTServces"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
+                                    android:tint="@color/PhoneColour"
                                     android:src="@android:drawable/stat_sys_phone_call"
                                     android:scaleType="fitCenter"
                                     android:adjustViewBounds="true"/>
@@ -751,13 +763,14 @@
                                     android:layout_centerVertical="true"/>
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     android:text="R"
                                     android:onClick="callPostRoom"
                                     android:layout_alignParentRight="true"
                                     android:background="@drawable/round_button"
                                     android:src="@android:drawable/stat_sys_phone_call"
+                                    android:tint="@color/PhoneColour"
                                     android:scaleType="fitCenter"
                                     android:adjustViewBounds="true"/>
                             </RelativeLayout>

@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -40,8 +41,9 @@ import java.util.List;
 
 public class ImportantDates extends AppCompatActivity {
 
-    private TextView tvDates;
+    private TextView tvDates, tvMessage;
     private ListView lstDates;
+    private ProgressBar progDates;
     private String strPostResponse, strQueryCode, strCourse, strCourseYear;
     private ActiveStudent As = ActiveStudent.getInstance();
 
@@ -59,12 +61,17 @@ public class ImportantDates extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         tvDates = (TextView)findViewById(R.id.tvDates);
+        tvMessage = (TextView)findViewById(R.id.tvMessageDates);
+        progDates = (ProgressBar)findViewById(R.id.progDates);
         lstDates = (ListView)findViewById(R.id.lstDates);
 
         strCourse = As.getCourse();
         strCourseYear = As.getYear();
 
         tvDates.setText("Important Dates for: " + strCourse + " - Year " + strCourseYear);
+
+        tvMessage.setVisibility(View.INVISIBLE);
+        progDates.setVisibility(View.INVISIBLE);
 
         new getDates().execute();
     }
@@ -91,8 +98,14 @@ public class ImportantDates extends AppCompatActivity {
         alertNoActiveUser.show();
     }
 
-
     private class getDates extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progDates.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -191,8 +204,10 @@ public class ImportantDates extends AppCompatActivity {
                 custom_list_adapter_importantdates custom_adapter = new custom_list_adapter_importantdates(ImportantDates.this, arDates, arType, arModule, arModuleCode, arDescription);
                 lstDates.setAdapter(custom_adapter);
             }else{
-                //SHOW NO RESULTS DIALOG
+                tvMessage.setVisibility(View.VISIBLE);
             }
+
+            progDates.setVisibility(View.GONE);
         }
 
         protected boolean isCheckDate(String strDate){

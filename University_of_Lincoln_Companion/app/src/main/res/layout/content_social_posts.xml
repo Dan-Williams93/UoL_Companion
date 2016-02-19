@@ -16,14 +16,40 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:text="Write a post..."
-        android:onClick="goToWritePost"/>
+        android:onClick="goToWritePost"
+        android:background="@drawable/rounded_button"/>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lstPosts"
-        android:layout_marginTop="10dp"
-        android:choiceMode="singleChoice"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lstPosts"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:choiceMode="singleChoice"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Posts Found"
+            android:id="@+id/tvMessageSocial"
+            android:layout_alignTop="@+id/lstPosts"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="182dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progSocial"
+            android:layout_marginTop="150dp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

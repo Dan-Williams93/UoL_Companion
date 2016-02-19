@@ -7,14 +7,13 @@
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="350dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:padding="24dp"
-        card_view:cardCornerRadius="10dp"
         card_view:cardElevation="7dp"
         android:layout_gravity="center">
 
@@ -23,10 +22,9 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -34,16 +32,18 @@
                     android:id="@+id/tvPosterName"
                     android:text="NAME"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="175dp"
+                    android:layout_marginRight="20dp"
                     android:text="00:00 31/12/16"
-                    android:id="@+id/tvPostDate"/>
-            </LinearLayout>
+                    android:id="@+id/tvPostDate"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="fill_parent"

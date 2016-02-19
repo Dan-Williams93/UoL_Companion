@@ -20,11 +20,13 @@
     </WebView>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:text="Return to Dash"
-        android:onClick="returnHome"/>
+        android:minHeight="40dp"
+        android:onClick="returnHome"
+        android:background="@drawable/rounded_button"/>
 
 </LinearLayout>

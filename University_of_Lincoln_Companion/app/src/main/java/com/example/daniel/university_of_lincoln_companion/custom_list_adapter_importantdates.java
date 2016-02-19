@@ -60,9 +60,9 @@ public class custom_list_adapter_importantdates extends ArrayAdapter {
         //SETS THE VALUES OF THE COMPONENTS TO THE VALUES OF THE ARRAY DATA PASSED IN AT THE POSITION OF THE CURRENT ROW
         tvDates.setText(arDates.get(position));
         tvType.setText(arType.get(position));
-        tvModule.setText(arModule.get(position));
-        tvModuleCode.setText(arModuleCode.get(position));
-        tvDescription.setText(arDescription.get(position));
+        tvModule.setText("Module: " + arModule.get(position));
+        tvModuleCode.setText("Module Code: " + arModuleCode.get(position));
+        tvDescription.setText("Description: " + arDescription.get(position));
 
         btnAddtoCalendar.setOnClickListener(new View.OnClickListener() {
             @Override

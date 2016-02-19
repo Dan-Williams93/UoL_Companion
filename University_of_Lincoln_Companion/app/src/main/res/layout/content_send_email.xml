@@ -79,7 +79,9 @@
             android:id="@+id/btnSend"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
-            android:onClick="sendEmail" />
+            android:onClick="sendEmail"
+            android:minHeight="40dp"
+            android:background="@drawable/rounded_button"/>
 
     <!--</ScrollView>-->
 

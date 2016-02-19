@@ -12,9 +12,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -40,6 +43,8 @@ public class SearchStaff extends AppCompatActivity {
     private EditText etSearch;
     private Spinner spSearchField;
     private ListView lstStaff;
+    private TextView tvMessage;
+    private ProgressBar progStaff;
 
     private ArrayList<String> arStaffName = new ArrayList<String>();
     private ArrayList<String> arDescription = new ArrayList<String>();
@@ -58,7 +63,25 @@ public class SearchStaff extends AppCompatActivity {
         etSearch = (EditText)findViewById(R.id.etSearch);
         spSearchField = (Spinner)findViewById(R.id.staffSpinner);
         lstStaff = (ListView)findViewById(R.id.lstStaff);
+        tvMessage = (TextView)findViewById(R.id.tvMessageStaff);
+        progStaff = (ProgressBar)findViewById(R.id.progStaff);
 
+        progStaff.setVisibility(View.GONE);
+
+        etSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!etSearch.hasFocus()){
+                    HideKeyboard();
+                }
+            }
+        });
+    }
+
+    public void HideKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
     }
 
     public Boolean CheckConnection(){
@@ -85,6 +108,8 @@ public class SearchStaff extends AppCompatActivity {
 
     public void searchStaff(View view){
 
+        HideKeyboard();
+
         arStaffName.clear();
         arDepartment.clear();
         arEmail.clear();
@@ -105,6 +130,13 @@ public class SearchStaff extends AppCompatActivity {
     }
 
     private class getStaffDetails extends AsyncTask<String, String, String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progStaff.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -182,16 +214,28 @@ public class SearchStaff extends AppCompatActivity {
             return null;
         }
 
-
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            progStaff.setVisibility(View.GONE);
+
             if (strQueryCode.equals("1")) {
+
+                tvMessage.setVisibility(View.GONE);
+
                 custom_list_adapter_staff custom_adapter = new custom_list_adapter_staff(SearchStaff.this, arStaffName, arDepartment, arEmail, arPhoneNumber);
                 lstStaff.setAdapter(custom_adapter);
+
+                lstStaff.setVisibility(View.VISIBLE);
+
             }else{
                 //SHOW NO RESULTS DIALOG
+
+                lstStaff.setVisibility(View.GONE);
+
+                tvMessage.setText("No Resuts Found");
+                tvMessage.setVisibility(View.VISIBLE);
             }
         }
 

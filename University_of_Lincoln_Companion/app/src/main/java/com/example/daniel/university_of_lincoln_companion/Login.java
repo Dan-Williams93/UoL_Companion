@@ -14,10 +14,10 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.widget.DialogTitle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -64,6 +64,31 @@ public class Login extends Activity {
         btnLogin = (Button)findViewById(R.id.btnLogin);
         etUsername = (EditText)findViewById(R.id.etUsername);
         etPassword = (EditText)findViewById(R.id.etPassword);
+
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!etPassword.isFocused()){
+                    HideKeyboard();
+                }
+            }
+        });
+
+        etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!etUsername.isFocused()){
+                    HideKeyboard();
+                }
+            }
+        });
+    }
+
+    public void HideKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
     }
 
     //CALLED WHEN CHECK BOX CLICKED

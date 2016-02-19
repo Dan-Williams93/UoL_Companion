@@ -6,4 +6,7 @@
 
     <color name="UniMain">#012148</color>
     <color name="UniMainDark">#011329</color>
+
+    <color name="PhoneColour">#31B404</color>
+    <color name="EmailColour">#F3F781</color>
 </resources>

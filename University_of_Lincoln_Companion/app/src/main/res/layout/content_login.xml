@@ -11,7 +11,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_login"
-    tools:context="com.example.daniel.university_of_lincoln_companion.Login">
+    tools:context="com.example.daniel.university_of_lincoln_companion.Login"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clickable="true">
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,18 +40,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:minHeight="40dp"
         android:id="@+id/btnLogin"
         android:layout_marginTop="5dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/cbAutoLogin"
-        android:onClick="user_Login" />
+        android:onClick="user_Login"
+        android:background="@drawable/rounded_button"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etUsername"
         android:layout_marginTop="5dp"
+        android:inputType="textAutoCorrect"
         android:layout_below="@+id/lblUsername"
         android:layout_centerHorizontal="true"
         android:background="@drawable/custom_border_socialposts"/>
@@ -56,7 +62,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
+        android:inputType="textPassword|textAutoCorrect"
         android:ems="10"
         android:layout_marginTop="5dp"
         android:id="@+id/etPassword"
@@ -70,8 +76,10 @@
         android:text="Keep Me Logged In"
         android:id="@+id/cbAutoLogin"
         android:checked="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/etPassword"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:onClick="autoLogin_Checked"
         android:clickable="true"
         android:enabled="true" />

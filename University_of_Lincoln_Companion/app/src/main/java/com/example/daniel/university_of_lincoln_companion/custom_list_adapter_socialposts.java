@@ -54,7 +54,7 @@ public class custom_list_adapter_socialposts extends ArrayAdapter {
         tvPosterName.setText(posterName.get(position));
         tvPost.setText(posts.get(position));
         tvPostDate.setText(postDate.get(position));
-        tvNumComments.setText(numberOfComments.get(position));
+        tvNumComments.setText("Comments: " + numberOfComments.get(position));
 
         return viewRow;
     }
