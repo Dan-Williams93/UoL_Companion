@@ -13,11 +13,24 @@
     tools:context="com.example.daniel.university_of_lincoln_companion.WebViewing"
     android:orientation="vertical">
 
-    <WebView
-        android:layout_width="fill_parent"
-        android:layout_height="500dp"
-        android:id="@+id/WebView1">
-    </WebView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <WebView
+            android:layout_width="fill_parent"
+            android:layout_height="500dp"
+            android:id="@+id/WebView1">
+        </WebView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progWebLoading"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
     <Button
         android:layout_width="340dp"

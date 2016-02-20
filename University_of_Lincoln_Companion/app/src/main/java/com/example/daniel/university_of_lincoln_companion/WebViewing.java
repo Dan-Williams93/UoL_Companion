@@ -17,6 +17,7 @@ import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,6 +25,7 @@ import java.net.URL;
 public class WebViewing extends Activity {
 
     private WebView myWebView;
+    private ProgressBar proWebLoading;
     private String strURL;
     private ActiveStudent activeStudent = ActiveStudent.getInstance();
 
@@ -33,6 +35,7 @@ public class WebViewing extends Activity {
         setContentView(R.layout.activity_web_viewing);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        proWebLoading = (ProgressBar)findViewById(R.id.progWebLoading);
         //need
         strURL = String.valueOf(getIntent().getExtras().get("URL"));
 
@@ -50,11 +53,15 @@ public class WebViewing extends Activity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+
+                proWebLoading.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
+                proWebLoading.setVisibility(View.INVISIBLE);
             }
         });
 

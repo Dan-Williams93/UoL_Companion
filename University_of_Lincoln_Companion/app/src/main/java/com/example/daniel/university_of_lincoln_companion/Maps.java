@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +23,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private EditText etFindRoom;
-    private String location;
+    private String strSearchlocation, strBuilding, strFloor, strLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +41,125 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     public void findRoom(View view){
 
         mMap.clear();
-        location = etFindRoom.getText().toString();
-        List<Address> addressList = null;
+        strSearchlocation = etFindRoom.getText().toString();
 
-        if (location != null || location != ""){
+        if (!strSearchlocation.equals(" ") || strSearchlocation != null || !strSearchlocation.equals("")) {
 
-            Geocoder geocoder = new Geocoder(this);
+            String[] arSplit = strSearchlocation.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
 
-            try {
-                addressList = geocoder.getFromLocationName(location, 1);
+            strBuilding = arSplit[0].toUpperCase();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (arSplit.length > 1) {
+                char[] temp = arSplit[1].toCharArray();
+                strFloor = ("Floor: " + String.valueOf(temp[0]));
+            }else strFloor = "Floor: Not Specified";
+
+            LatLng latLng;
+
+            switch (strBuilding) {
+                case "MB":
+                    strLocation = "Minerva Building";
+                    latLng = new LatLng(53.228529, -0.547874);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "MC":
+                    strLocation = "Media, Humanities & Technology";
+                    latLng = new LatLng(53.228850, -0.549451);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "MT":
+                    strLocation = "EMMTEC";
+                    latLng = new LatLng(53.228850, -0.549451);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "SS":
+                    strLocation = "Student Wellbeing Center";
+                    latLng = new LatLng(53.229309, -0.549211);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "HP":
+                    strLocation = "Sports Center";
+                    latLng = new LatLng(53.229309, -0.549211);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "AAD":
+                    strLocation = "Art, Architecture & Design";
+                    latLng = new LatLng(53.227867, -0.548407);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "ENG":
+                    strLocation = "Engineering Hub";
+                    latLng = new LatLng(53.227186, -0.547270);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "PA":
+                    strLocation = "Lincoln Performing Arts Centre";
+                    latLng = new LatLng(53.227275, -0.546148);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "UL":
+                    strLocation = "The Library";
+                    latLng = new LatLng(53.226690, -0.545159);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "BL":
+                    strLocation = "David Chiddick Building";
+                    latLng = new LatLng(53.226645, -0.544065);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "MIH":
+                    strLocation = "Minster House";
+                    latLng = new LatLng(53.227909, -0.556101);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "JBL":
+                    strLocation = "Joseph Banks Laboratories";
+                    latLng = new LatLng(53.227271, -0.555746);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "CSB":
+                    strLocation = "Charlotte Scott Building";
+                    latLng = new LatLng(53.228802, -0.556225);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                case "JUN":
+                    strLocation = "Junxion";
+                    latLng = new LatLng(53.225935, -0.543630);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(strLocation).snippet(strFloor)).showInfoWindow();
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    break;
+
+                default:
+                    Toast.makeText(Maps.this, "Invalid Entry", Toast.LENGTH_SHORT).show();
+                    etFindRoom.setText("");
+                    break;
             }
-
-            Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker")).showInfoWindow();
-            //mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
         }
     }
 
@@ -79,9 +180,28 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.setMyLocationEnabled(true);
+
+        List<Address> addressList = null;
+
+        String strLocation = "University of Lincoln";
+
+        Geocoder geocoder = new Geocoder(this);
+
+        try {
+            addressList = geocoder.getFromLocationName(strLocation, 1);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Address address = addressList.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(latLng).title("University of Lincoln")).showInfoWindow();
+        //mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     }
 }

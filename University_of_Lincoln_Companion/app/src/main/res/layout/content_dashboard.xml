@@ -230,7 +230,6 @@
                     android:text="Campus Map / Room Finder"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="#FF0000"
                     android:onClick="goToMap"/>
 
             </android.support.v7.widget.CardView>

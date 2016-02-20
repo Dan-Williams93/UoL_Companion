@@ -3,24 +3,23 @@
     <string name="app_title">UoL Companion</string>
     <string name="title_activity_login">Sign in</string>
 
-    <!-- Strings related to login -->
     <string name="Login">Login</string>
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="DashboardTitle">Dashboard</string>
     <string name="title_activity_web_view">WebView</string>
     <string name="title_activity_web_viewing">WebViewing</string>
-    <string name="title_activity_social_posts">SocialPosts</string>
-    <string name="title_activity_social_post_comments">SocialPostComments</string>
-    <string name="title_activity_create_post">CreatePost</string>
-    <string name="title_activity_search_staff">SearchStaff</string>
+    <string name="title_activity_social_posts">Community</string>
+    <string name="title_activity_social_post_comments">Comments</string>
+    <string name="title_activity_create_post">Create Post</string>
+    <string name="title_activity_search_staff">Staff Directory</string>
 
     <string-array name="search_entrires">
         <item>Name</item>
         <item>Department</item>
     </string-array>
-    <string name="title_activity_send_email">SendEmail</string>
-    <string name="title_activity_important_dates">ImportantDates</string>
-    <string name="title_activity_important_numbers">ImportantNumbers</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_send_email">Email</string>
+    <string name="title_activity_important_dates">Important Dates</string>
+    <string name="title_activity_important_numbers">Important Numbers</string>
+    <string name="title_activity_maps">Campus Map</string>
 
 </resources>
