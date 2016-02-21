@@ -53,8 +53,7 @@ public class Login extends Activity {
     public static final String PREFS_NAME = "MyPrefereces"; //TITLE OF SHARED PREFERENCES FILE
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -263,7 +262,7 @@ public class Login extends Activity {
                 etUsername.setText("");
                 etPassword.setText("");
             }else if (strQueryCode.equals("1")){
-                Toast.makeText(Login.this, "Login Successful, " + response, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Login.this, "Login Successful " + response, Toast.LENGTH_SHORT).show();
 
                 if (autoLog.isChecked())
                 {

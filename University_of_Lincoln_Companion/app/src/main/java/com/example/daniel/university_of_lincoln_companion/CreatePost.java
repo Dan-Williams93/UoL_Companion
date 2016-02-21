@@ -1,5 +1,6 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -158,6 +159,7 @@ public class CreatePost extends AppCompatActivity {
             if (strResponse.equals("1")) {
                 Toast.makeText(CreatePost.this, "Successfully Posted", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(CreatePost.this, SocialPosts.class));
+                ((Activity)CreatePost.this).finish();
             }else{
                 //change toast to dialog
                 Toast.makeText(CreatePost.this, "Unable to post", Toast.LENGTH_SHORT).show();

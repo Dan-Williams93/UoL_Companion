@@ -44,10 +44,11 @@ public class SocialPosts extends AppCompatActivity {
     private ArrayList<String> arlPosterNames = new ArrayList<String>();
     private ArrayList<String> arlPostDate = new ArrayList<String>();
     private ArrayList<String> arlNumberOfPostComments = new ArrayList<String>();
-    private String strResponse, strQueryCode, strSelectedStatus, strSelectedStatusCode, strSelectedNumComments, strPoster;
+    private String strResponse, strQueryCode, strSelectedStatus, strSelectedStatusCode, strSelectedNumComments, strPoster, strCourse;
     private ListView list;
     private TextView tvMessage;
     private ProgressBar progSocial;
+    private ActiveStudent as = ActiveStudent.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,8 @@ public class SocialPosts extends AppCompatActivity {
 
         progSocial.setVisibility(View.INVISIBLE);
         tvMessage.setVisibility(View.GONE);
+
+        strCourse = as.getCourse();
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -160,7 +163,7 @@ public class SocialPosts extends AppCompatActivity {
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                    String data = URLEncoder.encode("post_course", "UTF-8") + "=" + URLEncoder.encode("computer science", "UTF-8");
+                    String data = URLEncoder.encode("post_course", "UTF-8") + "=" + URLEncoder.encode(strCourse, "UTF-8");
 
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
