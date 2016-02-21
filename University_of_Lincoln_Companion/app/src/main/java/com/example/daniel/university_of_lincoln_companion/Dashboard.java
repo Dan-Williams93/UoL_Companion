@@ -13,10 +13,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class Dashboard extends Activity {
+public class Dashboard extends AppCompatActivity {
 
     private TextView tvUsername;
     private String strUsername, strTimetableURL, strBlackboardURL, strEmailURL;
@@ -30,8 +32,10 @@ public class Dashboard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        tvUsername = (TextView)findViewById(R.id.tvUsername);
+
+        tvUsername = (TextView) findViewById(R.id.tvUsername);
 
         strUsername = getIntent().getExtras().getString("username");
         tvUsername.setText(strUsername);
@@ -42,15 +46,15 @@ public class Dashboard extends Activity {
         strEmailURL = "https://adfs.lincoln.ac.uk/adfs/ls/?username=&wa=wsignin1.0&wtrealm=urn%3afederation%3aMicrosoftOnline&wctx=estsredirect%3d2%26estsrequest%3drQIIAbNSzygpKSi20tfPLy3Jyc_P1stPS8tMTjU2M9VLzs_Vyy9Kz0wBsaKYgQqKhLgE6g_VrdkaUunZ1s_6n7WG79ksRt6czLzk_Jw8vcRkvdLsVYxKeI3Uzy9P1L_AyLiJid3XyTM-ONjnBNPlz_y3mAT9i9I9U8KL3VJTUosSSzLz8x4x8YYWpxb55-VUhuRnp-ZNYubLyU_PzIsvLkqLT8vJLwcKAE0sSEwuiS_JTM5OLdnFrJJsmpZmaGFqrGuYapGia5KanKibZJxmrGtplmpskJRiapxoaXmBRWAXpxlhZ9oXpSbm5Nqi-A8A0";
     }
 
-    public Boolean CheckConnection(){
-        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE); //CREATE A NEW CONNECTION MANAGER
+    public Boolean CheckConnection() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE); //CREATE A NEW CONNECTION MANAGER
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();  //GETS THE INFORMATION OF THE ACTIVE NETWORK
 
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting(); //RETURNS TRUE IS THERE IS A CONNECTION OT A CONNECTING PROCESS
     }
 
     //SHOWS NO CONNECTION DIALOG
-    public void NoConnectionDialog(){
+    public void NoConnectionDialog() {
         AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
         alertNoActiveUser.setTitle("No Connection");
         alertNoActiveUser.setMessage("Please connect to the internet and try again");
@@ -64,60 +68,60 @@ public class Dashboard extends Activity {
         alertNoActiveUser.show();
     }
 
-    public void get_Timetable(View view){
+    public void get_Timetable(View view) {
 
         if (CheckConnection()) {
             Intent timetable_intent = new Intent(Dashboard.this, WebViewing.class);
             //timetable_intent.putExtra("Sender", "TimeTable");
             timetable_intent.putExtra("URL", strTimetableURL);
             startActivity(timetable_intent);
-        }else NoConnectionDialog();
+        } else NoConnectionDialog();
     }
 
-    public void goToBlackboard(View view){
+    public void goToBlackboard(View view) {
 
         if (CheckConnection()) {
             Intent blackboard_intent = new Intent(this, WebViewing.class);
             //blackboard_intent.putExtra("Sender", "Blackboard");
             blackboard_intent.putExtra("URL", strBlackboardURL);
             startActivity(blackboard_intent);
-        }else NoConnectionDialog();
+        } else NoConnectionDialog();
     }
 
-    public void goToEmail(View view){
+    public void goToEmail(View view) {
 
         if (CheckConnection()) {
             Intent email_intent = new Intent(this, WebViewing.class);
             //email_intent.putExtra("Sender", "Email");
             email_intent.putExtra("URL", strEmailURL);
             startActivity(email_intent);
-        }else NoConnectionDialog();
+        } else NoConnectionDialog();
     }
 
-    public void goToStaff(View view){
+    public void goToStaff(View view) {
 
         if (CheckConnection()) {
             startActivity(new Intent(this, SearchStaff.class));
-        }else NoConnectionDialog();
+        } else NoConnectionDialog();
     }
 
-    public void goToContact(View view){
+    public void goToContact(View view) {
         startActivity(new Intent(this, ImportantNumbers.class));
     }
 
-    public void goToSocial(View view){
+    public void goToSocial(View view) {
         if (CheckConnection()) {
             startActivity(new Intent(this, SocialPosts.class));
-        }else NoConnectionDialog();
+        } else NoConnectionDialog();
     }
 
-    public void getDates(View view){
-        if(CheckConnection()) {
+    public void getDates(View view) {
+        if (CheckConnection()) {
             startActivity(new Intent(this, ImportantDates.class));
-        }else NoConnectionDialog();
+        } else NoConnectionDialog();
     }
 
-    public void userLog_Out(View view) {
+    public void userLog_Out() {
 
         strUsername = "";
         prefsLoggedIn = false;
@@ -142,8 +146,28 @@ public class Dashboard extends Activity {
         finish();
     }
 
-    public void goToMap(View view){
+    public void goToMap(View view) {
 
         startActivity(new Intent(this, Maps.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // INFLATES THE ACTION BAR MENU; ADDING THE ITEMS FROM THE XML IF PRESENT
+        getMenuInflater().inflate(R.menu.dashboard_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_logout) {
+
+            userLog_Out();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/relative1">
+            android:id="@+id/relative1"
+            android:layout_marginTop="50dp">
 
             <!-- BLACKBOARD - width and height was 125 margin was 25-->
             <android.support.v7.widget.CardView
@@ -89,18 +90,27 @@
                 android:elevation="5dp"
                 android:onClick="goToStaff">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                    <!--android:text="Staff"-->
-                    <!--android:layout_gravity="center" />-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/staff"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/staff"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Staff Directory"
+                        android:layout_gravity="center"
+                        android:textSize="8sp"/>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -109,7 +119,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
             <!-- TIMETABLE -->
             <android.support.v7.widget.CardView
@@ -123,17 +134,27 @@
                 android:elevation="5dp"
                 android:onClick="get_Timetable">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Timetable"-->
-                    <!--android:layout_gravity="center"/>-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ic_event"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_event"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Timetable"
+                        android:layout_gravity="center"
+                        android:textSize="8sp"/>
+
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -149,18 +170,27 @@
                 android:elevation="5dp"
                 android:onClick="goToSocial">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                    <!--android:text="Social"-->
-                    <!--android:layout_gravity="center"/>-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ic_supervisor_account"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_supervisor_account"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Social"
+                        android:layout_gravity="center"
+                        android:textSize="8sp"/>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -176,19 +206,29 @@
                 android:elevation="5dp"
                 android:onClick="goToContact">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Important Numbers"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_gravity="center"/>-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@android:drawable/stat_sys_phone_call"
-                    android:layout_gravity="center"
-                    android:tint="#BDBDBD"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:src="@android:drawable/stat_sys_phone_call"
+                        android:layout_gravity="center"
+                        android:tint="#BDBDBD"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Important\nNumbers"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="2dp"
+                        android:textSize="8sp"/>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -199,7 +239,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="20dp">
 
              <!--IMPORTANT DATES -->
             <android.support.v7.widget.CardView
@@ -213,12 +254,19 @@
                 android:elevation="5dp"
                 android:onClick="getDates">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Important Dates"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Important Dates"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -252,33 +300,43 @@
                 android:layout_margin="10dp"
                 android:id="@+id/map"
                 card_view:cardCornerRadius="2dp"
-                android:elevation="5dp">
+                android:elevation="5dp"
+                android:onClick="goToMap">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Campus Map / Room Finder"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:onClick="goToMap"/>-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@android:drawable/ic_menu_mapmode"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:src="@android:drawable/ic_menu_mapmode"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Campus Map &amp; Room Finder"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:onClick="goToMap"
+                        android:textSize="8sp"/>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log Out"
-        android:id="@+id/btnLogout"
-        android:onClick="userLog_Out"
-        android:layout_marginTop="38dp"
-        android:layout_gravity="center_horizontal"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Log Out"-->
+        <!--android:id="@+id/btnLogout"-->
+        <!--android:onClick="userLog_Out"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:layout_gravity="center_horizontal"/>-->
 
 </LinearLayout>
