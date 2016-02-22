@@ -2,6 +2,7 @@ package com.example.daniel.university_of_lincoln_companion;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ public class Dashboard extends AppCompatActivity {
     private String strUsername, strTimetableURL, strBlackboardURL, strEmailURL;
     private boolean prefsLoggedIn = true;
     private ActiveStudent as = ActiveStudent.getInstance();
+    private int intCount = 0;
 
     public static final String PREFS_NAME = "MyPrefereces"; //TITLE OF SHARED PREFERENCES FILE
 
@@ -37,13 +39,31 @@ public class Dashboard extends AppCompatActivity {
 
         tvUsername = (TextView) findViewById(R.id.tvUsername);
 
+        SharedPreferences myPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        intCount = myPreferences.getInt("WebCount", 0);
+
         strUsername = getIntent().getExtras().getString("username");
         tvUsername.setText(strUsername);
 
 
         strTimetableURL = "http://timetables.lincoln.ac.uk/mytimetable/" + strUsername + ".htm";
-        strBlackboardURL = "https://blackboard.lincoln.ac.uk/webapps/login/?action=relogin";
+
+        //strBlackboardURL = "https://blackboard.lincoln.ac.uk/webapps/login/?action=relogin";
+        //strBlackboardURL = "https://blackboard.lincoln.ac.uk";
+
         strEmailURL = "https://adfs.lincoln.ac.uk/adfs/ls/?username=&wa=wsignin1.0&wtrealm=urn%3afederation%3aMicrosoftOnline&wctx=estsredirect%3d2%26estsrequest%3drQIIAbNSzygpKSi20tfPLy3Jyc_P1stPS8tMTjU2M9VLzs_Vyy9Kz0wBsaKYgQqKhLgE6g_VrdkaUunZ1s_6n7WG79ksRt6czLzk_Jw8vcRkvdLsVYxKeI3Uzy9P1L_AyLiJid3XyTM-ONjnBNPlz_y3mAT9i9I9U8KL3VJTUosSSzLz8x4x8YYWpxb55-VUhuRnp-ZNYubLyU_PzIsvLkqLT8vJLwcKAE0sSEwuiS_JTM5OLdnFrJJsmpZmaGFqrGuYapGia5KanKibZJxmrGtplmpskJRiapxoaXmBRWAXpxlhZ9oXpSbm5Nqi-A8A0";
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        intCount = 0;
+
+        SharedPreferences myPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPreferences.edit();
+        editor.putInt("WebCount", intCount);
+        editor.commit();
     }
 
     public Boolean CheckConnection() {
@@ -81,6 +101,17 @@ public class Dashboard extends AppCompatActivity {
     public void goToBlackboard(View view) {
 
         if (CheckConnection()) {
+
+            if (intCount == 0){
+                strBlackboardURL = "https://blackboard.lincoln.ac.uk/webapps/login/?action=relogin";
+                intCount++;
+                SharedPreferences myPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putInt("WebCount", intCount);
+                editor.commit();
+
+            }else strBlackboardURL = "https://blackboard.lincoln.ac.uk";
+
             Intent blackboard_intent = new Intent(this, WebViewing.class);
             //blackboard_intent.putExtra("Sender", "Blackboard");
             blackboard_intent.putExtra("URL", strBlackboardURL);
