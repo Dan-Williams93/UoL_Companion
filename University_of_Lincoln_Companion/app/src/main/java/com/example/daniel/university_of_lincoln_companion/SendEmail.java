@@ -1,5 +1,7 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SendEmail extends AppCompatActivity {
 
@@ -36,11 +39,39 @@ public class SendEmail extends AppCompatActivity {
         strSubject = etSubject.getText().toString();
         strMessage = etMessage.getText().toString();
 
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("message/rfc822");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{strEmailAddress});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, strSubject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, strMessage);
-        startActivity(Intent.createChooser(emailIntent, "Send email"));
+        if (strSubject.length() >= 1) {
+            if (strMessage.length() >= 1) {
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("message/rfc822");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{strEmailAddress});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, strSubject);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, strMessage);
+                startActivity(Intent.createChooser(emailIntent, "Send email"));
+            }else {
+                AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+                alertNoActiveUser.setTitle("Warning!");
+                alertNoActiveUser.setMessage("You must fill all fields before sending an email");
+
+                alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();   //CLOSES THE DIALOG
+                    }
+                });
+                alertNoActiveUser.show();
+            }
+        }else{
+            AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+            alertNoActiveUser.setTitle("Warning!");
+            alertNoActiveUser.setMessage("You must fill all fields before sending an email");
+
+            alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();   //CLOSES THE DIALOG
+                }
+            });
+            alertNoActiveUser.show();
+        }
     }
 }

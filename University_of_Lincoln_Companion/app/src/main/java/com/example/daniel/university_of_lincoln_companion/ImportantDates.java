@@ -98,6 +98,27 @@ public class ImportantDates extends AppCompatActivity {
         alertNoActiveUser.show();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        arDates.clear();
+        arDescription .clear();
+        arType.clear();
+        arModule.clear();
+        arModuleCode.clear();
+
+        strCourse = As.getCourse();
+        strCourseYear = As.getYear();
+
+        tvDates.setText("Important Dates for: " + strCourse + " - Year " + strCourseYear);
+
+        tvMessage.setVisibility(View.INVISIBLE);
+        progDates.setVisibility(View.INVISIBLE);
+
+        new getDates().execute();
+    }
+
     private class getDates extends AsyncTask<String, String, String> {
 
         @Override

@@ -71,7 +71,7 @@ public class SocialPostComments extends AppCompatActivity {
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hides on start
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         strStatusID = getIntent().getExtras().getString("statusID");
         strStatus = getIntent().getExtras().getString("status");

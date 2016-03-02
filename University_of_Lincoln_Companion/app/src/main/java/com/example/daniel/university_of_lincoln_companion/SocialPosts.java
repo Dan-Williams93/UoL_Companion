@@ -57,7 +57,7 @@ public class SocialPosts extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         list = (ListView) findViewById(R.id.lstPosts);
         tvMessage = (TextView)findViewById(R.id.tvMessageSocial);

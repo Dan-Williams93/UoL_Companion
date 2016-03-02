@@ -1,10 +1,12 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -36,10 +38,26 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        etFindRoom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (etFindRoom.isFocused() == false){
+                    HideKeyboard();
+                }
+            }
+        });
+    }
+
+    public void HideKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(etFindRoom.getWindowToken(), 0);
     }
 
     public void findRoom(View view){
 
+        HideKeyboard();
         mMap.clear();
         strSearchlocation = etFindRoom.getText().toString();
 
@@ -184,7 +202,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.setMyLocationEnabled(true);
-
         List<Address> addressList = null;
 
         String strLocation = "University of Lincoln";

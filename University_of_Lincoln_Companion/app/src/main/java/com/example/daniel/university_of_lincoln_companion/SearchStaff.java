@@ -119,7 +119,7 @@ public class SearchStaff extends AppCompatActivity {
         strSerachCriteria = etSearch.getText().toString();
         strSearchField = spSearchField.getSelectedItem().toString();
 
-        if (strSerachCriteria.length() >= 1) {
+        if (strSerachCriteria.length() >= 1 && !strSerachCriteria.matches(".*\\d.*")) {
             if (CheckConnection()) {
                 new getStaffDetails().execute();
             }else NoConnectionDialog();
