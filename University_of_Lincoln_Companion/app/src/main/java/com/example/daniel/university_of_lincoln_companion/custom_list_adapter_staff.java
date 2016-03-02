@@ -1,7 +1,9 @@
 package com.example.daniel.university_of_lincoln_companion;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -64,12 +66,30 @@ public class custom_list_adapter_staff extends ArrayAdapter {
             public void onClick(View v) {
                 strPhoneNumber = arPhone.get(position);
 
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + strPhoneNumber));
+                //CHECK IT IS A NUMBER
 
-                //int isPermission = getContext().checkCallingPermission("android.permission.CALL_PHONE");
+                if (!strPhoneNumber.equals("Not Specified")) {
 
-                context.startActivity(callIntent);
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + strPhoneNumber));
+
+                    //int isPermission = getContext().checkCallingPermission("android.permission.CALL_PHONE");
+
+                    context.startActivity(callIntent);
+                }else{
+                    //ALERT DIALOG
+                    AlertDialog alertNoActiveUser = new AlertDialog.Builder(context).create();
+                    alertNoActiveUser.setTitle("Warning!");
+                    alertNoActiveUser.setMessage("There is not contact number associated with this member of staff\n\nYou will not be able to call");
+
+                    alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();   //CLOSES THE DIALOG
+                        }
+                    });
+                    alertNoActiveUser.show();
+                }
             }
         });
 
@@ -78,11 +98,16 @@ public class custom_list_adapter_staff extends ArrayAdapter {
             public void onClick(View v) {
                 strEmailAddress = arEmail.get(position);
 
-                Intent emailIntent = new Intent(context, SendEmail.class );
+                Intent emailIntent = new Intent(context, SendEmail.class);
                 emailIntent.putExtra("Email_Address", strEmailAddress);
                 context.startActivity(emailIntent);
             }
         });
         return viewRow;
+    }
+
+
+    public void noNumberAlert(){
+
     }
 }

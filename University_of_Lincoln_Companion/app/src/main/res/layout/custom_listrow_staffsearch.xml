@@ -32,7 +32,8 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:id="@+id/tvStaffName"
-                 android:text="NAME" />
+                 android:text="NAME"
+                 android:textSize="20sp"/>
 
             <TextView
                 android:layout_width="match_parent"

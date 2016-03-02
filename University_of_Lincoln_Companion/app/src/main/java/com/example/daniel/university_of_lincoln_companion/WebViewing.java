@@ -1,5 +1,6 @@
 package com.example.daniel.university_of_lincoln_companion;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.VoiceInteractor;

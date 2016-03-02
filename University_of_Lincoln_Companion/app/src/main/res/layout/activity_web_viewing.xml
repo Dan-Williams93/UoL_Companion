@@ -6,6 +6,7 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.example.daniel.university_of_lincoln_companion.WebViewing">
 
+
     <include layout="@layout/content_web_viewing" />
 
 </android.support.design.widget.CoordinatorLayout>

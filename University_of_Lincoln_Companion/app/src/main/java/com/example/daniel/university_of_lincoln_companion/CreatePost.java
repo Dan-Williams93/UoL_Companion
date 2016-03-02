@@ -87,13 +87,28 @@ public class CreatePost extends AppCompatActivity {
 
         strStatus = etStatus.getText().toString();
 
-        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        strDate = currentDate.format(date);
+        if (strStatus.length() >= 1) {
 
-        if (CheckConnection()) {
-            new createPosts().execute();
-        }else NoConnectionDialog();
+            SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            strDate = currentDate.format(date);
+
+            if (CheckConnection()) {
+                new createPosts().execute();
+            } else NoConnectionDialog();
+        }else{
+            AlertDialog alertNoActiveUser = new AlertDialog.Builder(this).create();
+            alertNoActiveUser.setTitle("Invalid Content!");
+            alertNoActiveUser.setMessage("You can not post a blank status");
+
+            alertNoActiveUser.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();   //CLOSES THE DIALOG
+                }
+            });
+            alertNoActiveUser.show();
+        }
     }
 
     private class createPosts extends AsyncTask<String, String, String> {

@@ -11,7 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Daniel on 06/02/2016.
@@ -26,7 +30,7 @@ public class custom_list_adapter_importantdates extends ArrayAdapter {
     private ArrayList<String> arModuleCode;
     private ArrayList<String> arDescription;
 
-    private String strDate, strStartTime, strFinishTime, strDescription, strType, strModule, strModuleCode;
+    private String strDate, strDescription, strType, strModule, strModuleCode;
     //endregion
 
     //ADAPTER CONSTRUCTOR RECEIVING THE CALLING CONTEXT PLUS ARRAY LISTS CONTAINING THE RECIPE NAMES AND RECIPE IMAGES
@@ -77,10 +81,14 @@ public class custom_list_adapter_importantdates extends ArrayAdapter {
                 String strTitle = strModule + " - " + strModuleCode + " " + strType;
 
                 //add to calendar
+
+                String[] date = strDate.split("-");
+
+                GregorianCalendar calDate = new GregorianCalendar(Integer.parseInt(date[0]), (Integer.parseInt(date[1])-1), Integer.parseInt(date[2]));
                 Intent calendarIntent = new Intent(Intent.ACTION_INSERT);
                 calendarIntent.setData(CalendarContract.Events.CONTENT_URI);
-                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, strStartTime);
-                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, strFinishTime);
+                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calDate.getTimeInMillis());
+                //calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, null);
                 calendarIntent.putExtra(CalendarContract.Events.TITLE, strTitle);
                 calendarIntent.putExtra(CalendarContract.Events.DESCRIPTION, strDescription);
                 context.startActivity(calendarIntent);
