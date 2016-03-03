@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class Dashboard extends AppCompatActivity {
 
     private TextView tvUsername;
-    private String strUsername, strTimetableURL, strBlackboardURL, strEmailURL;
+    private String strUsername, strTimetableURL, strBlackboardURL, strEmailURL, strPCURL;
     private boolean prefsLoggedIn = true;
     private ActiveStudent as = ActiveStudent.getInstance();
     private int intCount = 0;
@@ -42,7 +42,8 @@ public class Dashboard extends AppCompatActivity {
         SharedPreferences myPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         intCount = myPreferences.getInt("WebCount", 0);
 
-        strUsername = getIntent().getExtras().getString("username");
+        //strUsername = getIntent().getExtras().getString("username");
+        strUsername = as.getStudentNumber();
         tvUsername.setText(strUsername);
 
 
@@ -51,6 +52,7 @@ public class Dashboard extends AppCompatActivity {
         //strBlackboardURL = "https://blackboard.lincoln.ac.uk/webapps/login/?action=relogin";
         //strBlackboardURL = "https://blackboard.lincoln.ac.uk";
 
+        strPCURL = "http://findapc.lincoln.ac.uk/";
         strEmailURL = "https://adfs.lincoln.ac.uk/adfs/ls/?username=&wa=wsignin1.0&wtrealm=urn%3afederation%3aMicrosoftOnline&wctx=estsredirect%3d2%26estsrequest%3drQIIAbNSzygpKSi20tfPLy3Jyc_P1stPS8tMTjU2M9VLzs_Vyy9Kz0wBsaKYgQqKhLgE6g_VrdkaUunZ1s_6n7WG79ksRt6czLzk_Jw8vcRkvdLsVYxKeI3Uzy9P1L_AyLiJid3XyTM-ONjnBNPlz_y3mAT9i9I9U8KL3VJTUosSSzLz8x4x8YYWpxb55-VUhuRnp-ZNYubLyU_PzIsvLkqLT8vJLwcKAE0sSEwuiS_JTM5OLdnFrJJsmpZmaGFqrGuYapGia5KanKibZJxmrGtplmpskJRiapxoaXmBRWAXpxlhZ9oXpSbm5Nqi-A8A0";
 
     }
@@ -94,6 +96,7 @@ public class Dashboard extends AppCompatActivity {
             Intent timetable_intent = new Intent(Dashboard.this, WebViewing.class);
             //timetable_intent.putExtra("Sender", "TimeTable");
             timetable_intent.putExtra("URL", strTimetableURL);
+            timetable_intent.putExtra("From", "Timetable");
             startActivity(timetable_intent);
         } else NoConnectionDialog();
     }
@@ -110,12 +113,20 @@ public class Dashboard extends AppCompatActivity {
                 editor.putInt("WebCount", intCount);
                 editor.commit();
 
-            }else strBlackboardURL = "https://blackboard.lincoln.ac.uk";
+                Intent blackboard_intent = new Intent(this, WebViewing.class);
+                //blackboard_intent.putExtra("Sender", "Blackboard");
+                blackboard_intent.putExtra("URL", strBlackboardURL);
+                blackboard_intent.putExtra("From", "Blackboard");
+                startActivity(blackboard_intent);
 
-            Intent blackboard_intent = new Intent(this, WebViewing.class);
-            //blackboard_intent.putExtra("Sender", "Blackboard");
-            blackboard_intent.putExtra("URL", strBlackboardURL);
-            startActivity(blackboard_intent);
+            }else
+                strBlackboardURL = "https://blackboard.lincoln.ac.uk";
+
+                Intent blackboard_intent = new Intent(this, WebViewing.class);
+                //blackboard_intent.putExtra("Sender", "Blackboard");
+                blackboard_intent.putExtra("URL", strBlackboardURL);
+                blackboard_intent.putExtra("From", "Blackboard");
+                startActivity(blackboard_intent);
         } else NoConnectionDialog();
     }
 
@@ -125,6 +136,7 @@ public class Dashboard extends AppCompatActivity {
             Intent email_intent = new Intent(this, WebViewing.class);
             //email_intent.putExtra("Sender", "Email");
             email_intent.putExtra("URL", strEmailURL);
+            email_intent.putExtra("From", "Email");
             startActivity(email_intent);
         } else NoConnectionDialog();
     }
@@ -143,6 +155,16 @@ public class Dashboard extends AppCompatActivity {
     public void goToSocial(View view) {
         if (CheckConnection()) {
             startActivity(new Intent(this, SocialPosts.class));
+        } else NoConnectionDialog();
+    }
+
+    public void goToFindPC(View view){
+        if (CheckConnection()) {
+            Intent pc_intent = new Intent(this, WebViewing.class);
+            //email_intent.putExtra("Sender", "Email");
+            pc_intent.putExtra("URL", strPCURL);
+            pc_intent.putExtra("From", "PC");
+            startActivity(pc_intent);
         } else NoConnectionDialog();
     }
 

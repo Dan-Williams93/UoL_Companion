@@ -3,6 +3,7 @@ package com.example.daniel.university_of_lincoln_companion;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -59,6 +61,9 @@ public class SearchStaff extends AppCompatActivity {
         setContentView(R.layout.activity_search_staff);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
 
         etSearch = (EditText)findViewById(R.id.etSearch);
         spSearchField = (Spinner)findViewById(R.id.staffSpinner);
@@ -127,6 +132,21 @@ public class SearchStaff extends AppCompatActivity {
             Toast.makeText(SearchStaff.this, "Invalid Entry", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+
+                Intent i = new Intent(this, Dashboard.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class getStaffDetails extends AsyncTask<String, String, String>{

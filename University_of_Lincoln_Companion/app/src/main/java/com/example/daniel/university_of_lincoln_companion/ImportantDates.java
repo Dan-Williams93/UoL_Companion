@@ -3,6 +3,7 @@ package com.example.daniel.university_of_lincoln_companion;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -59,6 +61,9 @@ public class ImportantDates extends AppCompatActivity {
         setContentView(R.layout.activity_important_dates);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
 
         tvDates = (TextView)findViewById(R.id.tvDates);
         tvMessage = (TextView)findViewById(R.id.tvMessageDates);
@@ -117,6 +122,21 @@ public class ImportantDates extends AppCompatActivity {
         progDates.setVisibility(View.INVISIBLE);
 
         new getDates().execute();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+
+                Intent i = new Intent(this, Dashboard.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class getDates extends AsyncTask<String, String, String> {

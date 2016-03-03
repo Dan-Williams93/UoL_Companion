@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,6 +35,9 @@ public class ImportantNumbers extends AppCompatActivity {
         setContentView(R.layout.activity_important_numbers);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
 
         //region TELEPHONE NUMBER TEXT VIEWS
         tvGeneralEnquiresNum = (TextView) findViewById(R.id.tvGeneralEnquiriesNum);
@@ -191,4 +195,19 @@ public class ImportantNumbers extends AppCompatActivity {
         startActivity(emailIntent);
     }
     //endregion
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+
+                Intent i = new Intent(this, Dashboard.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

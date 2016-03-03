@@ -1,10 +1,15 @@
 package com.example.daniel.university_of_lincoln_companion;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -21,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class Maps extends FragmentActivity implements OnMapReadyCallback {
+public class Maps extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private EditText etFindRoom;
@@ -31,6 +36,12 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
+        getSupportActionBar().setTitle("Find A Room");
 
         etFindRoom = (EditText)findViewById(R.id.etRoomSearch);
 
@@ -181,6 +192,20 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+
+                Intent i = new Intent(this, Dashboard.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     /**
      * Manipulates the map once available.

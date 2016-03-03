@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -63,6 +64,9 @@ public class SocialPostComments extends AppCompatActivity {
         setContentView(R.layout.activity_social_post_comments);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
 
         //tvStatus = (TextView)findViewById(R.id.tvStatus);
         etComment = (EditText)findViewById(R.id.etComment);
@@ -151,6 +155,21 @@ public class SocialPostComments extends AppCompatActivity {
                 Toast.makeText(SocialPostComments.this, "Invalid Comment", Toast.LENGTH_SHORT).show();
             }
         }else NoConnectionDialog();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+
+                Intent i = new Intent(this, Dashboard.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class getComments extends AsyncTask<Void, Void, Void> {

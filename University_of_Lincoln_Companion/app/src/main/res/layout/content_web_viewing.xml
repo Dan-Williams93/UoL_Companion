@@ -15,11 +15,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="fill_parent">
 
+        <!-- 500dp height-->
         <WebView
             android:layout_width="fill_parent"
-            android:layout_height="500dp"
+            android:layout_height="fill_parent"
             android:id="@+id/WebView1">
         </WebView>
 
@@ -32,14 +33,14 @@
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="Return to Dash"
-        android:minHeight="40dp"
-        android:onClick="returnHome"
-        android:background="@drawable/rounded_button"/>
+    <!--<Button-->
+        <!--android:layout_width="340dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="Return to Dash"-->
+        <!--android:minHeight="40dp"-->
+        <!--android:onClick="returnHome"-->
+        <!--android:background="@drawable/rounded_button"/>-->
 
 </LinearLayout>
