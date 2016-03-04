@@ -17,10 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import java.net.CookieManager;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -96,9 +99,22 @@ public class WebViewing extends AppCompatActivity {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                //Intent i = new Intent(Intent.ACTION_VIEW);
+                //i.setData(Uri.parse(url));
+                //startActivity(i);
+
+                String cookie = android.webkit.CookieManager.getInstance().getCookie(url);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.addRequestHeader("Cookie", cookie);
+                request.allowScanningByMediaScanner();
+                request.setDescription("Downloading from UoL");
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                String fileName = URLUtil.guessFileName(url, null, MimeTypeMap.getFileExtensionFromUrl(url));
+
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+                DownloadManager dm = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+                dm.enqueue(request);
             }
         });
     }

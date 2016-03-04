@@ -90,7 +90,8 @@
                     android:src="@android:drawable/stat_sys_phone_call"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:tint="@color/PhoneColour"/>
 
             </RelativeLayout>
 

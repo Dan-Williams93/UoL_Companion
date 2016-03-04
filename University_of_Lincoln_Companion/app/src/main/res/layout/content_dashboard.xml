@@ -31,16 +31,31 @@
                 android:id="@+id/Blackboard"
                 card_view:cardCornerRadius="2dp"
                 android:elevation="5dp"
-                android:onClick="goToBlackboard"
-                >
+                android:onClick="goToBlackboard">
 
-                <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:id="@+id/Blackboardlogo"
-                    android:layout_gravity="center"
-                    android:src="@drawable/blackboard_logo"
-                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="55dp"
+                        android:id="@+id/Blackboardlogo"
+                        android:layout_gravity="center"
+                        android:src="@drawable/blackboard_logo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Blackboard"
+                        android:layout_gravity="center"
+                        android:textSize="8sp"
+                        android:layout_marginTop="3dp"/>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -56,18 +71,28 @@
                 android:elevation="5dp"
                 android:onClick="goToEmail">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                    <!--android:text="EMAIL"-->
-                    <!--android:layout_gravity="center" />-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@android:drawable/ic_dialog_email"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@android:drawable/ic_dialog_email"
+                        android:layout_gravity="center"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Email"
+                        android:layout_gravity="center"
+                        android:textSize="8sp"/>
+
+                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -101,7 +126,8 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Staff Directory"
                         android:layout_gravity="center"
-                        android:textSize="8sp"/>
+                        android:textSize="8sp"
+                        android:layout_marginTop="7dp"/>
 
                 </LinearLayout>
 
@@ -206,11 +232,12 @@
                     android:layout_gravity="center">
 
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
                         android:src="@android:drawable/stat_sys_phone_call"
                         android:layout_gravity="center"
-                        android:tint="#BDBDBD"/>
+                        android:tint="#BDBDBD"
+                        android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -218,8 +245,8 @@
                         android:text="Important\nNumbers"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:textSize="8sp"/>
+                        android:layout_marginTop="10dp"
+                        android:textSize="8sp" />
 
                 </LinearLayout>
 
@@ -251,12 +278,20 @@
                     android:orientation="vertical"
                     android:layout_gravity="center">
 
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_event_note"
+                        android:layout_gravity="center"
+                        android:tint="#BDBDBD"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Important Dates"
                         android:gravity="center"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:textSize="8sp"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
