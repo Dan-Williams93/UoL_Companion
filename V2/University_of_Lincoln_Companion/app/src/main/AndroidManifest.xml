@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.daniel.university_of_lincoln_companion">
+
+
+    <!-- add read external storage-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/uol_logo"
+        android:logo="@drawable/ic_dashboard"
+        android:label="@string/app_title"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- SPLASH ACTIVITY -->
+        <activity
+            android:name=".Splash"
+            android:label="@string/app_title"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- LOGIN ACTIVITY -->
+        <activity
+            android:name=".Login"
+            android:label="@string/Login"
+            android:parentActivityName=".Splash"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.Login" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.daniel.university_of_lincoln_companion.Splash" />
+        </activity>
+
+        <!-- DASHBOARD ACTIVITY -->
+        <activity
+            android:name=".Dashboard"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.Login" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- WEBVIEW ACTIVITY -->
+        <activity
+            android:name=".WebViewing"
+            android:label="@string/title_activity_web_viewing"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.Login" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- SOCIAL POSTS ACTIVITY -->
+        <activity
+            android:name=".SocialPosts"
+            android:label="@string/title_activity_social_posts"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.Login" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.daniel.university_of_lincoln_companion.Dashboard" />
+        </activity>
+
+        <!-- SOCIAL COMMENTS ACTIVITY -->
+        <activity
+            android:name=".SocialPostComments"
+            android:label="@string/title_activity_social_post_comments"
+            android:parentActivityName=".SocialPosts"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.Login" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.daniel.university_of_lincoln_companion.SocialPosts" />
+        </activity>
+        <activity
+            android:name=".CreatePost"
+            android:label="@string/title_activity_create_post"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SearchStaff"
+            android:label="@string/title_activity_search_staff"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SendEmail"
+            android:label="@string/title_activity_send_email"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ImportantDates"
+            android:label="@string/title_activity_important_dates"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ImportantNumbers"
+            android:label="@string/title_activity_important_numbers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".Maps"
+            android:label="@string/title_activity_maps"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

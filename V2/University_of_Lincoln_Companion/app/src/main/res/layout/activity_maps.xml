@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.daniel.university_of_lincoln_companion.SocialPosts">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/UniMain"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:clickable="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <EditText
+                        android:layout_width="235dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etRoomSearch"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Room Number"
+                        android:background="@drawable/custom_border_socialposts"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Find"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="findRoom"/>
+
+                </LinearLayout>
+
+
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="com.example.daniel.university_of_lincoln_companion.Maps" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
+        android:padding="24dp"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="7dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tvStaffName"
+                 android:text="NAME"
+                 android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Department"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvDepartment"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Email: fdfdsdf@.com"
+                    android:id="@+id/tvEmail"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btnEmail"
+                    android:text="Email"
+                    android:background="@drawable/round_button"
+                    android:src="@android:drawable/ic_dialog_email"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvPhone"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="Phone #: 093746453453" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btnRing"
+                    android:text="Ring"
+                    android:background="@drawable/round_button"
+                    android:src="@android:drawable/stat_sys_phone_call"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentRight="true"
+                    android:tint="@color/PhoneColour"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

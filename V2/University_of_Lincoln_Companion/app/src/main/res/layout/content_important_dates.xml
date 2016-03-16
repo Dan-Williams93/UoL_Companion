@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.daniel.university_of_lincoln_companion.ImportantDates"
+    tools:showIn="@layout/activity_important_dates"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tvDates" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lstDates"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Dates Founds"
+            android:id="@+id/tvMessageDates"
+            android:layout_alignTop="@+id/lstDates"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="191dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progDates"
+            android:layout_marginTop="170dp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>
