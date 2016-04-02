@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.daniel.university_of_lincoln_companion.ImportantNumbers"
+    tools:showIn="@layout/activity_important_numbers"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- IMPORTANT NUMBERS -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Important Numbers"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="30dp"/>
+
+                    <!-- GENERAL ENQUIRIES -->
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="General Enquiries"
+                            android:textSize="20sp"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="01522 88 2000"
+                                android:id="@+id/tvGeneralEnquiriesNum"
+                                android:textSize="15sp"
+                                android:layout_centerVertical="true"/>
+
+                            <ImageButton
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="10dp"
+                                android:text="R"
+                                android:onClick="callGeneralEnquires"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/round_button"
+                                android:src="@android:drawable/stat_sys_phone_call"
+                                android:scaleType="fitXY"
+                                android:adjustViewBounds="true"
+                                android:tint="@color/PhoneColour"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- SECURITY -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Security"
+                            android:textSize="20sp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="01522 88 6062"
+                                android:id="@+id/tvSecurityNum"
+                                android:textSize="15sp"
+                                android:layout_centerVertical="true"/>
+
+                            <ImageButton
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:text="R"
+                                android:onClick="callSecurity"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/round_button"
+                                android:src="@android:drawable/stat_sys_phone_call"
+                                android:scaleType="fitCenter"
+                                android:adjustViewBounds="true"
+                                android:tint="@color/PhoneColour"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- USEFUL CONTACTS -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Useful Contacts"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="30dp"/>
+
+                        <!-- ACCOMMODATION SERVICES-->
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Accommodation Services"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6195"
+                                    android:id="@+id/tvAccommodationNum"
+                                    android:textSize="15dp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callAccommodationServices"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="accommodation@lincoln.ac.uk"
+                                    android:id="@+id/tvAccommodationAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailAccommodationServices"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"
+                                    />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- THE LIBRARY -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="The Library"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6222"
+                                    android:id="@+id/tvLibraryNum"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callTheLibrary"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="library@lincoln.ac.uk"
+                                    android:id="@+id/tvLibraryAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailLibrary"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- STUDENT SUPPORT -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Student Support"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 83 7080"
+                                    android:id="@+id/tvStudentSupportNum"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callStudentSupport"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="studentsupport@lincoln.ac.uk"
+                                    android:id="@+id/tvStudentSupportAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailStudentSupport"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- STUDENTS' UNION-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Students' Union"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6006"
+                                    android:id="@+id/tvStudentsUnionNum"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callStudentsUnion"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"
+                                    android:tint="@color/PhoneColour"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="su@lincoln.ac.uk"
+                                    android:id="@+id/tvStudentsUnionAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailSU"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- SERVICES -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Services"
+                        android:textSize="30sp"
+                        android:layout_marginBottom="30dp"/>
+
+                        <!-- ESTATES, FACILITIES & MAINTENANCE-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Estates, Facilities &#38; Maintenance"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15sp"
+                                    android:text="01522 88 6777"
+                                    android:id="@+id/tvEstatesNum"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callEstates"
+                                    android:tint="@color/PhoneColour"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="estatessupport@lincoln.ac.uk"
+                                    android:id="@+id/tvEstatesAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailEstates"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- FINANCE -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Finance"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6705"
+                                    android:id="@+id/tvFinanceNum"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:tint="@color/PhoneColour"
+                                    android:onClick="callFinance"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="finance@lincoln.ac.uk"
+                                    android:id="@+id/tvFinanceAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailFinance"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- HUMAN RESOURCES -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Human Resources"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6775"
+                                    android:id="@+id/tvHRNum"
+                                    android:layout_centerVertical="true"
+                                    android:textSize="15sp"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callHR"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:tint="@color/PhoneColour"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="hr@lincoln.ac.uk"
+                                    android:id="@+id/tvHRAdd"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailHR"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- ICT SERVICES & HELPDESK -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ICT Services &#38; Helpdesk"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6500"
+                                    android:id="@+id/tvICTServicesNum"
+                                    android:layout_centerVertical="true"
+                                    android:textSize="15sp"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callICTServces"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:tint="@color/PhoneColour"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+                            <!-- EMAIL -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="helpdesk@lincoln.ac.uk"
+                                    android:id="@+id/tvICTServicesAdd"
+                                    android:layout_centerVertical="true"
+                                    android:textSize="15sp"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="M"
+                                    android:onClick="mailHelpDesk"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/ic_dialog_email"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <!-- POST ROOM -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Post Room"
+                                android:textSize="20sp"/>
+
+                            <!-- PHONE -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="01522 88 6171"
+                                    android:textSize="15sp"
+                                    android:id="@+id/tvPostRoomNum"
+                                    android:layout_centerVertical="true"/>
+
+                                <ImageButton
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:text="R"
+                                    android:onClick="callPostRoom"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/round_button"
+                                    android:src="@android:drawable/stat_sys_phone_call"
+                                    android:tint="@color/PhoneColour"
+                                    android:scaleType="fitCenter"
+                                    android:adjustViewBounds="true"/>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
